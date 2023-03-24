@@ -2,7 +2,8 @@ import axios from '../../axios';
 import React, { useEffect, useState } from 'react'
 import requests from '../../Requests';
 import '../Banner/banner.scss'
-
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 function Banner() {
     const [movie, setMovie] = useState([]);
@@ -12,7 +13,7 @@ function Banner() {
             const request = await axios.get(requests.fetchNetflixOriginals);
             setMovie(
                 request.data.results[
-                    Math.floor(Math.random() * request.data.results.length - 1)
+                Math.floor(Math.random() * request.data.results.length - 1)
                 ]
             )
             return request;
@@ -21,11 +22,11 @@ function Banner() {
         fetchData();
     }, []);
 
-        console.log(movie);
+    console.log(movie);
 
-        function truncate(string, n) {
-            return string?.length > n ? string.substr(0, n - 1) + "..." : string;
-        }
+    function truncate(string, n) {
+        return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+    }
 
     return (
         <header className='banner'
@@ -42,13 +43,19 @@ function Banner() {
                     150
                 )}</h1>
                 <div className='banner_buttons'>
-                    <button className='banner_button'>Play</button>
-                    <button className='banner_button'>More Info</button>
-                    
+                    <button className='banner_button'>
+                        <PlayArrowIcon />
+                        Play
+                    </button>
+                    <button className='banner_button'>
+                        <InfoOutlinedIcon />
+                        More Info
+                    </button>
+
                 </div>
             </div>
             <div className='banner--fadeBottom' />
-            
+
         </header>
     )
 }

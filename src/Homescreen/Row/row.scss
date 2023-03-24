@@ -1,52 +1,33 @@
 .row {
-    color: #fff;
+    margin-bottom: 20px;
+
     .row_title {
         padding: 0.3rem 0;
+        color: #fff;
     }
 
 
     .row_posters {
         position: relative;
-        
 
-        .rowSlide_Left {
-            cursor: pointer;
-            position: absolute;
-            top: 0;
-            left: 0;
+        .sliderArrow {
             width: 38px;
-            max-width: 250px;
             height: 100%;
-            background-color: hsla(0, 0%, 8%, .5);
-            border: none;
-            outline: none;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            color: #fff;
-            transition: all 450ms;
-            z-index: 3;
-            &:hover {
-                background-color: rgba(7, 6, 6, 0.7);
+            background-color: rgb(22, 22, 22, 0.5);
+            color: white;
+            position: absolute;
+            z-index: 99;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            cursor: pointer;
+
+            &.Left {
+                left: 0;
             }
-        }
 
-        .rowSlide_Right {
-            cursor: pointer;
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 38px;
-            height: 100%;
-            background-color: hsla(0, 0%, 8%, .5);
-            border: none;
-            outline: none;
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
-            color: #fff;
-            transition: all 450ms;
-            z-index: 3;
-            &:hover {
-                background-color: rgba(7, 6, 6, 0.5);
+            &.Right {
+                right: 0;
             }
         }
 
@@ -55,7 +36,7 @@
             align-items: center;
             overflow-y: hidden;
             overflow-x: scroll;
-            padding-left: 2.5rem;
+            padding: 20px;
 
             .row_posterLarge {
                 max-height: 150px;
@@ -65,15 +46,13 @@
             .row_poster {
                 cursor: pointer;
                 width: 250px;
-                object-fit: cover;
+                object-fit: contain;
                 border-radius: 3px;
                 margin-right: 0.5rem;
                 transition: transform 450ms;
-                z-index: 2;
 
                 &:hover {
                     transform: scale(1.08);
-                    z-index: 5;
                 }
             }
 
