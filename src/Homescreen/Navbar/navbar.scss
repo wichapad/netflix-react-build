@@ -1,3 +1,11 @@
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
 .nav {
 
     position: fixed;
@@ -23,7 +31,58 @@
 
             .nav_logo {
                 width: 80px;
+                margin-right: 1rem;
                 object-fit: cover;
+            }
+
+            .nav_menu {
+                position: relative;
+                color: #fff;
+
+                .browse {
+                    font-size: 14px;
+                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
+
+                    &:hover {
+                        color: rgb(97, 97, 97);
+                    }
+                }
+            }
+
+            &:hover .nav_subMenu {
+                display: block;
+            }
+
+            .nav_subMenu {
+                display: none;
+                position: absolute;
+                margin-top: 16rem;
+                width: 45%;
+                max-width: 250px;
+                background-color: rgba(0, 0, 0, 0.9);
+                border-top: 1px solid #fff;
+
+                ul {
+                    li {
+                        width: 100%;
+                        padding: 0.5rem 0;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        transition: all 0.2s;
+
+                        a {
+                            color: #fff;
+                        }
+
+                        &:hover {
+                            background-color: rgb(97, 97, 97);
+                        }
+                    }
+                }
             }
         }
 

@@ -38,21 +38,19 @@
             overflow-x: scroll;
             padding: 20px;
 
-            .row_posterLarge {
-                max-height: 150px;
-                padding: 0 1rem;
-            }
+            .row_posterContainer {
 
-            .row_poster {
-                cursor: pointer;
-                width: 250px;
-                object-fit: contain;
-                border-radius: 3px;
-                margin-right: 0.5rem;
-                transition: transform 450ms;
+                .row_posterLarge {
+                    max-height: 150px;
+                    padding: 0 1rem;
+                }
 
-                &:hover {
-                    transform: scale(1.08);
+                .row_poster {
+                    cursor: pointer;
+                    width: 250px;
+                    object-fit: contain;
+                    border-radius: 3px;
+                    margin-right: 0.5rem;
                 }
             }
 

@@ -9,6 +9,7 @@ import { useRef } from 'react';
 function Row({ title, fetchUrl, isLargeRow = false }) {
     const [movies, setMovies] = useState([]);
     const rowRef = useRef(null);
+    const [hoveredMovie, setHoveredMovie] = useState(null);
 
 
     const base_url = "http://image.tmdb.org/t/p/original/";
@@ -49,6 +50,17 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
         }
     };
 
+    const handleMovieHover = (movie) => {
+        setHoveredMovie(movie);
+    }
+    const handleMouseLeave = () => {
+        setHoveredMovie(null);
+    }
+
+    function truncate(string, n) {
+        return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+    }
+
 
     return (
         <div className='row'>
@@ -61,15 +73,28 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 
                 <div className="row_posterMovies" ref={rowRef}>
                     {movies.map((movie) => (
-                        <img
-                            className={`row_poster 
-                            ${isLargeRow && "row_posterLarge"}`}
 
+                        <div
                             key={movie.id}
-                            src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                            alt={movie.name}
-
-                        />
+                            className={"row_posterContainer"}
+                            onMouseEnter={() => handleMovieHover(movie)}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <img
+                                className={`row_poster ${isLargeRow && "row_posterLarge"}`}
+                                src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                                alt={movie.name}
+                            />
+                            {hoveredMovie && hoveredMovie.id === movie.id && (
+                                <div className="row_info">
+                                    <h3>{movie.title || movie.name}</h3>
+                                    <p>{truncate(
+                                        movie?.overview,
+                                        150
+                                    )}</p>
+                                </div>
+                            )}
+                        </div>
                     ))}
                 </div>
                 <ArrowForwardIosIcon
