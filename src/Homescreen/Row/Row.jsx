@@ -7,9 +7,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useRef } from 'react';
 
 function Row({ title, fetchUrl, isLargeRow = false }) {
+    const [isMoved, setIsMoved] = useState(false);
     const [movies, setMovies] = useState([]);
     const rowRef = useRef(null);
-    const [hoveredMovie, setHoveredMovie] = useState(null);
+    
+
 
 
     const base_url = "http://image.tmdb.org/t/p/original/";
@@ -25,6 +27,7 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     }, [fetchUrl]);
 
     const handleArrowClick = (direction) => {
+        setIsMoved(true);
         const row = rowRef.current;
         const rowScrollWidth = row.scrollWidth;
         const rowVisibleWidth = row.offsetWidth;
@@ -50,17 +53,9 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
         }
     };
 
-    const handleMovieHover = (movie) => {
-        setHoveredMovie(movie);
-    }
-    const handleMouseLeave = () => {
-        setHoveredMovie(null);
-    }
+   
 
-    function truncate(string, n) {
-        return string?.length > n ? string.substr(0, n - 1) + "..." : string;
-    }
-
+    
 
     return (
         <div className='row'>
@@ -69,41 +64,28 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                 <ArrowBackIosNewIcon
                     className='sliderArrow Left'
                     onClick={() => handleArrowClick('left')}
+                    style={{display: !isMoved && "none"}}
                 />
 
                 <div className="row_posterMovies" ref={rowRef}>
                     {movies.map((movie) => (
 
-                        <div
+                        <img
+                            className={`row_poster ${isLargeRow && "row_posterLarge"}`}
                             key={movie.id}
-                            className={"row_posterContainer"}
-                            onMouseEnter={() => handleMovieHover(movie)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <img
-                                className={`row_poster ${isLargeRow && "row_posterLarge"}`}
-                                src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                                alt={movie.name}
-                            />
-                            {hoveredMovie && hoveredMovie.id === movie.id && (
-                                <div className="row_info">
-                                    <h3>{movie.title || movie.name}</h3>
-                                    <p>{truncate(
-                                        movie?.overview,
-                                        150
-                                    )}</p>
-                                </div>
-                            )}
-                        </div>
+                            src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                            alt={movie.name}
+                        />
+                        
                     ))}
-                </div>
-                <ArrowForwardIosIcon
-                    className='sliderArrow Right'
-                    onClick={() => handleArrowClick('right')}
-                />
             </div>
-
+            <ArrowForwardIosIcon
+                className='sliderArrow Right'
+                onClick={() => handleArrowClick('right')}
+            />
         </div>
+
+        </div >
     )
 }
 
